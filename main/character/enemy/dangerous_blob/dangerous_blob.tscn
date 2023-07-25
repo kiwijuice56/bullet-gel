@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://blql48uvjbvdb"]
+
+[ext_resource type="PackedScene" uid="uid://dkfpal0jlaw81" path="res://main/character/enemy/enemy.tscn" id="1_tdwv3"]
+[ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/assets/circle_sprite.png" id="2_hkcv7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjsjf"]
+radius = 64.0
+
+[node name="DangerousBlob" instance=ExtResource("1_tdwv3")]
+scale = Vector2(0.25, 0.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_hkcv7")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_qjsjf")

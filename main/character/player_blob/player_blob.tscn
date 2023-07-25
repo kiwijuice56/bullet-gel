@@ -1,14 +1,101 @@
-[gd_scene load_steps=11 format=3 uid="uid://balfjm4xyndc6"]
+[gd_scene load_steps=12 format=3 uid="uid://balfjm4xyndc6"]
 
-[ext_resource type="Script" path="res://main/character/player_blob/player_blob.gd" id="1_ppc7i"]
 [ext_resource type="PackedScene" uid="uid://m3ms4jrd5ej3" path="res://main/character/character.tscn" id="1_qsgrj"]
-[ext_resource type="PackedScene" uid="uid://cq6rbj6w8v03w" path="res://main/bullet/basic_bullet/basic_bullet.tscn" id="2_jrwog"]
-[ext_resource type="PackedScene" path="res://main/character/player_blob/health_blob_positions/health_blobs_4.tscn" id="3_jpc2o"]
+[ext_resource type="Script" path="res://main/character/player_blob/player_blob.gd" id="2_5dl0t"]
+[ext_resource type="PackedScene" uid="uid://cq6rbj6w8v03w" path="res://main/bullet/basic_bullet/basic_bullet.tscn" id="3_i5aph"]
 [ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/assets/circle_sprite.png" id="4_jmpyn"]
 [ext_resource type="AudioStream" uid="uid://cnboqak72oxm4" path="res://main/assets/hypno_sound.wav" id="6_8eif6"]
 
+[sub_resource type="Curve" id="Curve_02rl2"]
+_data = [Vector2(0.0185185, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0429448), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_1t6o0"]
 radius = 32.0
+
+[sub_resource type="Animation" id="Animation_13nwl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OuterSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HealthBlobRoot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OuterSprite:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OuterSprite:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HealthBlobRoot:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DeathSoundPlayer:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_hr8ql"]
 resource_name = "shoot"
@@ -36,65 +123,123 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1)
 }
 
-[sub_resource type="Animation" id="Animation_13nwl"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_1up66"]
+resource_name = "death"
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OuterSprite:scale")
+tracks/0/path = NodePath("DeathParticles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HealthBlobRoot:rotation")
+tracks/1/path = NodePath("OuterSprite:scale:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OuterSprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HealthBlobRoot:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DeathSoundPlayer:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_42gcf"]
 _data = {
 "RESET": SubResource("Animation_13nwl"),
+"death": SubResource("Animation_1up66"),
 "shoot": SubResource("Animation_hr8ql")
 }
 
 [node name="PlayerBlob" instance=ExtResource("1_qsgrj")]
 scale = Vector2(0.25, 0.25)
-script = ExtResource("1_ppc7i")
-bullet_scene = ExtResource("2_jrwog")
+collision_layer = 1
+collision_mask = 12
+script = ExtResource("2_5dl0t")
+bullet_scene = ExtResource("3_i5aph")
 movement_speed = 70.0
 shoot_cooldown = 0.2
-pitch_minimum = 0.8
-pitch_maximum = 1.2
+invincibility_time = 0.5
+spawn_distance = 25.0
 
 [node name="OuterSprite" type="Sprite2D" parent="." index="0"]
 texture = ExtResource("4_jmpyn")
 
-[node name="HealthBlobRoot" type="Node2D" parent="." index="1"]
+[node name="DeathParticles" type="CPUParticles2D" parent="." index="1"]
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.85
+local_coords = true
+texture = ExtResource("4_jmpyn")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 256.0
+initial_velocity_max = 512.0
+scale_amount_min = 0.16
+scale_amount_max = 0.35
+scale_amount_curve = SubResource("Curve_02rl2")
 
-[node name="HealthBlobs4" parent="HealthBlobRoot" index="0" instance=ExtResource("3_jpc2o")]
+[node name="HealthBlobRoot" type="Node2D" parent="." index="2"]
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_1t6o0")
 
-[node name="ShootDelayTimer" type="Timer" parent="." index="3"]
+[node name="ShootDelayTimer" type="Timer" parent="." index="4"]
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="InvincibilityTimer" type="Timer" parent="." index="5"]
+one_shot = true
+
+[node name="DeathSoundPlayer" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource("6_8eif6")
+pitch_scale = 0.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 speed_scale = 5.0
 libraries = {
 "": SubResource("AnimationLibrary_42gcf")
 }
-
-[node name="ShootSoundPlayer" type="AudioStreamPlayer" parent="." index="5"]
-stream = ExtResource("6_8eif6")

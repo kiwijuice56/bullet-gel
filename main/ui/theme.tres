@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c6ss3d7i3wnph"]
+
+[ext_resource type="FontFile" uid="uid://bhxhghaub2aph" path="res://main/ui/roboto_mono.ttf" id="1_5ha2h"]
+
+[sub_resource type="FontVariation" id="FontVariation_yrahk"]
+base_font = ExtResource("1_5ha2h")
+
+[resource]
+default_font = SubResource("FontVariation_yrahk")
