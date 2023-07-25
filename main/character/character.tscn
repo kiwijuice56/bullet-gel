@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://m3ms4jrd5ej3"]
+
+[ext_resource type="Script" path="res://main/character/character.gd" id="1_ffraq"]
+
+[node name="Character" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ffraq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

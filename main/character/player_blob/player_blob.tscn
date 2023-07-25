@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://dls4be8hcx4ot"]
+
+[ext_resource type="Script" path="res://main/character/player_blob/player_blob.gd" id="1_ppc7i"]
+[ext_resource type="PackedScene" uid="uid://m3ms4jrd5ej3" path="res://main/character/character.tscn" id="1_qsgrj"]
+[ext_resource type="PackedScene" uid="uid://c77t3b7iadmmq" path="res://main/bullet/basic_bullet/basic_bullet.tscn" id="2_jrwog"]
+[ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/circle_sprite.png" id="2_knaoh"]
+[ext_resource type="PackedScene" path="res://main/character/player_blob/health_blob_positions/health_blobs_4.tscn" id="3_jpc2o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1t6o0"]
+radius = 32.0
+
+[node name="PlayerBlob" instance=ExtResource("1_qsgrj")]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_ppc7i")
+bullet_scene = ExtResource("2_jrwog")
+movement_speed = 70.0
+shoot_cooldown = 0.2
+
+[node name="OuterSprite" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_knaoh")
+
+[node name="HealthBlobs4" parent="." index="1" instance=ExtResource("3_jpc2o")]
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_1t6o0")
+
+[node name="ShootDelayTimer" type="Timer" parent="." index="3"]
+one_shot = true

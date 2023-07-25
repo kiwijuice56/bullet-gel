@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/circle_sprite.png" id="1_tjrvk"]
+
+[node name="HealthBlobs4" type="Node2D"]
+
+[node name="1" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-16, -16)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_tjrvk")
+
+[node name="2" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(16, -16)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_tjrvk")
+
+[node name="3" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(16, 16)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_tjrvk")
+
+[node name="4" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-16, 16)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_tjrvk")

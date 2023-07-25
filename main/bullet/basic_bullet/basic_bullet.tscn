@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c77t3b7iadmmq"]
+
+[ext_resource type="PackedScene" uid="uid://csa72coqv7q0k" path="res://main/bullet/bullet.tscn" id="1_lv4gi"]
+[ext_resource type="Script" path="res://main/bullet/basic_bullet/basic_bullet.gd" id="2_jnxdj"]
+[ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/circle_sprite.png" id="3_ec673"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lg0iw"]
+radius = 3.0
+
+[node name="BasicBullet" instance=ExtResource("1_lv4gi")]
+script = ExtResource("2_jnxdj")
+movement_speed = 256.0
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_ec673")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_lg0iw")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="2"]
+lifetime = 0.4
+local_coords = true
+texture = ExtResource("3_ec673")
+emission_shape = 1
+emission_sphere_radius = 2.0
+scale_amount_min = 0.01
+scale_amount_max = 0.02
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+rect = Rect2(-40, -40, 80, 80)
