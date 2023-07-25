@@ -1,19 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://cneqyxs6tlvc8"]
+[gd_scene load_steps=16 format=3 uid="uid://clt6ivcifrnvn"]
 
-[ext_resource type="PackedScene" uid="uid://balfjm4xyndc6" path="res://main/character/player_blob/player_blob.tscn" id="1_4lef6"]
+[ext_resource type="PackedScene" uid="uid://677477d6qelj" path="res://main/character/player_blob/player_blob.tscn" id="1_4lef6"]
 [ext_resource type="PackedScene" uid="uid://blql48uvjbvdb" path="res://main/character/enemy/dangerous_blob/dangerous_blob.tscn" id="1_8ni0r"]
 [ext_resource type="Theme" uid="uid://c6ss3d7i3wnph" path="res://main/ui/theme.tres" id="1_m0ekw"]
-[ext_resource type="Script" path="res://main/title_ui.gd" id="2_xwdlj"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_tfkwd"]
 [ext_resource type="AudioStream" uid="uid://b6nsg2uqcbf4x" path="res://main/assets/ambient-drone.wav" id="3_6shms"]
+[ext_resource type="Script" path="res://main/ui/title_ui.gd" id="3_mwi6j"]
 [ext_resource type="FontFile" uid="uid://bhxhghaub2aph" path="res://main/ui/roboto_mono.ttf" id="3_t4mgl"]
 [ext_resource type="AudioStream" uid="uid://c0kasblaf0ka7" path="res://main/assets/pulse.wav" id="4_8lk41"]
+[ext_resource type="Script" path="res://main/enemy_spawner.gd" id="4_cwfxu"]
+[ext_resource type="Script" path="res://main/ui/score_label.gd" id="4_jtfg2"]
 [ext_resource type="Script" path="res://main/character/player_blob/pulse_player.gd" id="5_hpbpj"]
+[ext_resource type="Script" path="res://main/ui/hud.gd" id="5_llqww"]
+[ext_resource type="Script" path="res://main/ui/game_over_ui.gd" id="7_q1s4r"]
+[ext_resource type="PackedScene" uid="uid://cfan778k10fgu" path="res://main/character/enemy/shooty_blob/shooty_blob.tscn" id="8_m3cnl"]
 
 [sub_resource type="FontVariation" id="FontVariation_3pmex"]
 base_font = ExtResource("3_t4mgl")
 spacing_bottom = -17
 
 [node name="Main" type="Node"]
+script = ExtResource("1_tfkwd")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -25,10 +32,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_m0ekw")
-script = ExtResource("2_xwdlj")
+script = ExtResource("3_mwi6j")
 
 [node name="TitleName" type="Label" parent="UILayer/Title"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,6 +47,7 @@ offset_right = 84.0
 offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("FontVariation_3pmex")
 theme_override_font_sizes/font_size = 48
 text = "bullet
@@ -61,6 +68,7 @@ offset_right = 84.0
 offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "move using the 
 arrow keys
@@ -82,6 +90,7 @@ offset_right = 84.0
 offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "shoot using the
 space key"
@@ -101,6 +110,7 @@ offset_right = 84.0
 offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "every time you 
 are hurt, you
@@ -122,6 +132,7 @@ offset_right = 84.0
 offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "balance your
 health 
@@ -143,6 +154,7 @@ offset_right = 84.0
 offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "survive as
 long
@@ -153,12 +165,72 @@ horizontal_alignment = 2
 [node name="DelayTimer" type="Timer" parent="UILayer/Title"]
 wait_time = 5.0
 
+[node name="HUD" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_m0ekw")
+script = ExtResource("5_llqww")
+
+[node name="ScoreLabel" type="Label" parent="UILayer/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -25.0
+offset_right = 77.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "score: 0"
+script = ExtResource("4_jtfg2")
+
+[node name="GameOver" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_m0ekw")
+script = ExtResource("7_q1s4r")
+
+[node name="Label" type="Label" parent="UILayer/GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -39.0
+offset_right = 77.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "your final score was
+0
+try again"
+horizontal_alignment = 2
+
+[node name="DelayTimer" type="Timer" parent="UILayer/GameOver"]
+wait_time = 5.0
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("4_cwfxu")
+enemy_list = Array[PackedScene]([ExtResource("1_8ni0r"), ExtResource("8_m3cnl")])
+spawn_time_min = 0.7
+spawn_time_max = 2.5
+
+[node name="SpawnTimeout" type="Timer" parent="EnemySpawner"]
+one_shot = true
+
 [node name="PlayerBlob" parent="." instance=ExtResource("1_4lef6")]
 position = Vector2(98, 166)
 scale = Vector2(0.3, 0.3)
-
-[node name="DangerousBlob" parent="." instance=ExtResource("1_8ni0r")]
-position = Vector2(285, 83)
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_6shms")
@@ -170,3 +242,6 @@ stream = ExtResource("4_8lk41")
 volume_db = -32.0
 autoplay = true
 script = ExtResource("5_hpbpj")
+
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 3.0

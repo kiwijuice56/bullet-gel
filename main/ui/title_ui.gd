@@ -3,6 +3,7 @@ extends Control
 
 signal tutorial_complete
 
+# Play a small cutscene explaining the game.
 func _ready() -> void:
 	for idx in range(get_child_count()):
 		if not get_child(idx) is Label:

@@ -3,7 +3,7 @@ class_name PlayerBlob
 extends Character
 
 # Used to spawn blob copies when hurt.
-const PLAYER_SCENE_PATH: String ="res://main/character/player_blob/player_blob.tscn"
+const PLAYER_SCENE_PATH: String = "res://main/character/player_blob/player_blob.tscn"
 
 const HEALTH_STAGES: Array[PackedScene] = [
 	preload("res://main/character/player_blob/health_blob_positions/health_blobs_4.tscn"),
@@ -26,8 +26,6 @@ const HEALTH_STAGES: Array[PackedScene] = [
 # How far two child blobs will spawn away from eachother.
 @export var spawn_distance: float = 25.0
 
-var health: int = 3
-
 func _ready() -> void:
 	# Call Character's ready to initialize collision signals.
 	super._ready()
@@ -46,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	position += direction * movement_speed * delta
 	
 	# Keep player position within the screen.
-	position = position.clamp(Vector2(16, 16), get_viewport_rect().size - Vector2(16, 16))
+	position = position.clamp(Vector2(0, 0), get_viewport_rect().size)
 	
 	# Spawn a bullet when shoot is pressed and cooldown is off.
 	if Input.is_action_pressed("shoot") and $ShootDelayTimer.is_stopped():
@@ -69,15 +67,18 @@ func shoot() -> void:
 	# over the player sprite.
 	get_tree().get_root().move_child(new_bullet, 0)
 	
-	# We also have to make sure the bullet starts at the player's position
+	# Set layer "player_bullet" to true.
+	new_bullet.set_collision_layer_value(2, true)
+	
+	# We also have to make sure the bullet starts at the player's position.
 	new_bullet.global_position = global_position
 	
 	new_bullet.direction = Vector2.UP
 	
-	# Start the cooldown to prevent another shot until shoot_cooldown seconds have passed
+	# Start the cooldown to prevent another shot until shoot_cooldown seconds have passed.
 	$ShootDelayTimer.start(shoot_cooldown)
 	
-	# Play the shooting animation
+	# Play the shooting animation.
 	$AnimationPlayer.play("shoot")
 
 func split() -> void:
@@ -89,6 +90,7 @@ func split() -> void:
 	$ShootDelayTimer.start(999)
 	
 	if health - 1 > 0:
+		GlobalState.player_blob_count += 2
 		var spawn_direction: Vector2 = Vector2(1, 0).rotated(2 * PI * randf())
 		for idx in range(2):
 			var new_player: PlayerBlob = load(PLAYER_SCENE_PATH).instantiate()
@@ -113,6 +115,7 @@ func split() -> void:
 			tween.tween_property(new_player, "position", 
 			new_player.position + spawn_distance / 2 * spawn_direction, 0.1)
 	
+	GlobalState.player_blob_count -= 1
 	$DeathSoundPlayer.pitch_scale = 0.4 + randf() * 0.4 - 0.2
 	
 	$AnimationPlayer.stop()

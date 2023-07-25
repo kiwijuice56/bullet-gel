@@ -1,10 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://m3ms4jrd5ej3"]
+[gd_scene load_steps=5 format=3 uid="uid://m3ms4jrd5ej3"]
 
 [ext_resource type="Script" path="res://main/character/character.gd" id="1_ffraq"]
+[ext_resource type="AudioStream" uid="uid://cnboqak72oxm4" path="res://main/assets/hypno_sound.wav" id="2_dsw2b"]
+[ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/assets/circle_sprite.png" id="3_u11bp"]
+
+[sub_resource type="Curve" id="Curve_02rl2"]
+_data = [Vector2(0.0185185, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0429448), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Character" type="Area2D"]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ffraq")
 
+[node name="DeathSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dsw2b")
+pitch_scale = 0.4
+
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.85
+local_coords = true
+texture = ExtResource("3_u11bp")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 256.0
+initial_velocity_max = 512.0
+scale_amount_min = 0.16
+scale_amount_max = 0.35
+scale_amount_curve = SubResource("Curve_02rl2")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

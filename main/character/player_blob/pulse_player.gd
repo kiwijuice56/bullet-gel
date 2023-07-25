@@ -7,5 +7,5 @@ func _process(delta: float) -> void:
 		volume_db += 32.0 * delta
 	else:
 		volume_db -= 32.0 * delta
-	volume_db = clamp(volume_db, -32, 0)
+	volume_db = clamp(volume_db, -32, 4)
  

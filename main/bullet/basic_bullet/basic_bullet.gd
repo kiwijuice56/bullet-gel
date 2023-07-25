@@ -7,5 +7,8 @@ extends Bullet
 
 var direction: Vector2
 
+func _ready() -> void:
+	rotation = Vector2(1.0, 0.0).angle_to(direction)
+
 func _physics_process(delta: float) -> void:
 	position += direction * movement_speed * delta 

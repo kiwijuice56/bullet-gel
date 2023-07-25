@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfan778k10fgu"]
+
+[ext_resource type="PackedScene" uid="uid://dkfpal0jlaw81" path="res://main/character/enemy/enemy.tscn" id="1_o1e81"]
+[ext_resource type="Script" path="res://main/character/enemy/shooty_blob/shooty_blob.gd" id="2_n6mt1"]
+[ext_resource type="PackedScene" uid="uid://bp6ihpyy1bpxi" path="res://main/bullet/basic_bullet/basic_bullet_slow.tscn" id="3_5sjir"]
+[ext_resource type="Texture2D" uid="uid://bqrgwkki1cfbs" path="res://main/assets/circle_sprite.png" id="3_butbh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjsjf"]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f3nr0"]
+radius = 700.0
+
+[node name="ShootyBlob" instance=ExtResource("1_o1e81")]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("2_n6mt1")
+bullet_scene = ExtResource("3_5sjir")
+shoot_cooldown_max = 1.2
+shoot_cooldown_min = 0.5
+kill_score = 15
+
+[node name="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CircleShape2D_qjsjf")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="5"]
+rect = Rect2(-256, -256, 512, 512)
+
+[node name="BlackSprite" type="Sprite2D" parent="." index="6"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_butbh")
+
+[node name="WhiteSprite" type="Sprite2D" parent="." index="7"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_butbh")
+
+[node name="ShootDelayTimer" type="Timer" parent="." index="8"]
+one_shot = true
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." index="9"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
+shape = SubResource("CircleShape2D_f3nr0")
