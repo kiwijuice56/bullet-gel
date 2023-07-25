@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://clt6ivcifrnvn"]
+[gd_scene load_steps=16 format=3 uid="uid://bhpfweah2i6nr"]
 
 [ext_resource type="PackedScene" uid="uid://677477d6qelj" path="res://main/character/player_blob/player_blob.tscn" id="1_4lef6"]
 [ext_resource type="PackedScene" uid="uid://blql48uvjbvdb" path="res://main/character/enemy/dangerous_blob/dangerous_blob.tscn" id="1_8ni0r"]
 [ext_resource type="Theme" uid="uid://c6ss3d7i3wnph" path="res://main/ui/theme.tres" id="1_m0ekw"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_tfkwd"]
-[ext_resource type="AudioStream" uid="uid://b6nsg2uqcbf4x" path="res://main/assets/ambient-drone.wav" id="3_6shms"]
 [ext_resource type="Script" path="res://main/ui/title_ui.gd" id="3_mwi6j"]
 [ext_resource type="FontFile" uid="uid://bhxhghaub2aph" path="res://main/ui/roboto_mono.ttf" id="3_t4mgl"]
 [ext_resource type="AudioStream" uid="uid://c0kasblaf0ka7" path="res://main/assets/pulse.wav" id="4_8lk41"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" path="res://main/ui/hud.gd" id="5_llqww"]
 [ext_resource type="Script" path="res://main/ui/game_over_ui.gd" id="7_q1s4r"]
 [ext_resource type="PackedScene" uid="uid://cfan778k10fgu" path="res://main/character/enemy/shooty_blob/shooty_blob.tscn" id="8_m3cnl"]
+[ext_resource type="AudioStream" uid="uid://c0wnbcywy08lb" path="res://main/assets/ambient_drone.mp3" id="12_c2k7v"]
 
 [sub_resource type="FontVariation" id="FontVariation_3pmex"]
 base_font = ExtResource("3_t4mgl")
@@ -233,7 +233,7 @@ position = Vector2(98, 166)
 scale = Vector2(0.3, 0.3)
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_6shms")
+stream = ExtResource("12_c2k7v")
 volume_db = -12.0
 autoplay = true
 
