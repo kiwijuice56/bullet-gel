@@ -1,4 +1,4 @@
-# Root script
+# Root script.
 class_name Main
 extends Node
 
@@ -8,6 +8,7 @@ func _ready() -> void:
 	GlobalState.player_count_updated.connect(_on_player_count_updated)
 
 func _on_player_count_updated() -> void:
+	# When the player is completely dead, reset the game.
 	if GlobalState.player_blob_count == 0:
 		$EnemySpawner.stop_spawning()
 		

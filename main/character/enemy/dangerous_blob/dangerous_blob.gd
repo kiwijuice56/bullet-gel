@@ -1,3 +1,4 @@
+# Simple enemies that fall across the screen.
 class_name DangerousBlob
 extends Enemy
 

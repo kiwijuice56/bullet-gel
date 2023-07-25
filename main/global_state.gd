@@ -1,21 +1,21 @@
-# Singleton with global variables
+# Singleton with global variables.
 extends Node
 
 # Variables used to scale difficulty of enemies, such as how fast they spawn or how
-# fast they move. Set by EnemySpawner.
+# fast they move. Updated every second inside of this script.
 var difficulty: int = 1
 var max_difficulty: int = 64
 
 var player_blob_count: int = 1:
 	set(val):
-		# A signal is used to update the game
+		# A signal is used to update the game.
 		player_blob_count = val
 		player_count_updated.emit()
 
-# The player's score for a run
+# The player's score for a run.
 var score: int = 0:
 	set(val):
-		# A signal is used to update the UI
+		# A signal is used to update the UI.
 		score = val
 		score_updated.emit()
 

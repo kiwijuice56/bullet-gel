@@ -1,3 +1,4 @@
+# Shoots bullets at the player.
 class_name ShootyBlob
 extends Enemy
 

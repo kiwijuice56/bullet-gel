@@ -2,6 +2,7 @@
 class_name EnemySpawner
 extends Node
 
+# List of enemies to randomly spawn.
 @export var enemy_list: Array[PackedScene]
 
 # The initial range of the cooldown for spawning enemies.

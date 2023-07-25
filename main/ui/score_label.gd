@@ -1,3 +1,4 @@
+# Keep the score on the bottom left updated.
 class_name ScoreLabel
 extends Label
 
